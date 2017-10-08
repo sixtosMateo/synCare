@@ -13,7 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import {DashboardDetails} from "./services/dashboardDetails";
-
+import { ParticipatePage } from '../pages/participate/participate';
+import { DataProvider } from '../providers/data/data';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,9 @@ import {DashboardDetails} from "./services/dashboardDetails";
     HomePage,
     ListPage,
     LoginPage,
-    DashboardPage
-  
+    DashboardPage,
+    ParticipatePage
+
   ],
   imports: [
     BrowserModule,
@@ -35,13 +37,15 @@ import {DashboardDetails} from "./services/dashboardDetails";
     HomePage,
     ListPage,
     LoginPage,
-    DashboardPage
+    DashboardPage,
+    ParticipatePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DashboardDetails
+    DashboardDetails,
+    DataProvider
   ]
 })
 export class AppModule {}
