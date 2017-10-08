@@ -51,6 +51,8 @@ export class ParticipatePage {
 
   submittedAmount: number = 0;
 
+  currencySymbol: any =  "৳"; //"$";
+
   private urlParameters: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
@@ -95,6 +97,15 @@ export class ParticipatePage {
   this.requestedCatergory = this.navParams.get('category');
 
   this.contribution = this.navParams.get('amount');
+
+let currency_used = this.navParams.get('currency');
+
+  if(currency_used == 'dollar'){
+    this.currencySymbol = "$";
+  }else if(currency_used == 'taka'){
+    this.currencySymbol = "৳";
+  }
+
 
  }
 
