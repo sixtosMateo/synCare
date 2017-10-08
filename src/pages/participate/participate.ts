@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { HomePage } from '../home/home';
+// import { HomePage } from '../home/home';
 import { DashboardPage } from '../dashboard/dashboard';
 
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -248,6 +248,7 @@ let currency_used = this.navParams.get('currency');
   denyRequest(){
 
     console.log("Denied request");
+    this.backToDashboard();
 
   }
 
@@ -262,11 +263,11 @@ let currency_used = this.navParams.get('currency');
   //  headers.append('Content-Type', 'text/html' );
    let options = new RequestOptions({ headers: headers });
 
-   let dataObj = {
-     title: 'foo',
-     body: 'bar',
-     userId: 1
-   }
+  //  let dataObj = {
+  //    title: 'foo',
+  //    body: 'bar',
+  //    userId: 1
+  //  }
 
    let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + this.submittedAmount + "&category=" + this.requestedCatergory  + "&currency=dollar";
   // let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=53&category=medicine&currency=dollar";
