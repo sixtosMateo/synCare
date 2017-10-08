@@ -36,20 +36,8 @@ export class DashboardPage {
 
       
   });
-  this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=getX&uid=1').map(res => res.json()).subscribe(data => {
-    
-    
-    
-    data.forEach(r => {
-      if(r.username == this.nameU)
-        { 
-          this.posts=r.fullname;
-          this.posts1=r.username;
-          this.posts2=r.email;
-          this.posts3=r.percent;
-        
-        }
-    });
+  // this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=getX&uid=1').map(res => res.json()).subscribe(data => {
+  //   this.historyshop = data;});
 
    //console.log(this.navPara.get('title'))
   }
