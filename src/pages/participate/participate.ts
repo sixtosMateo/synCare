@@ -61,6 +61,7 @@ export class ParticipatePage {
     });
 
     this.requestInfo = this.getRequesterInfo();
+
     this.dataService.getRemoteData();
 
     this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=users').map(res => res.json()).subscribe(data => {
@@ -82,6 +83,18 @@ export class ParticipatePage {
  });
 
   //console.log(this.navPara.get('title'));
+
+  console.log("NOW IN CONSTRUCTOR");
+  console.log(this.navParams);
+  console.log("amount: " + this.navParams.get('amount'));
+
+  this.requesterName = this.navParams.get('realname');
+
+  this.requestedAmount = this.navParams.get('total');
+
+  this.requestedCatergory = this.navParams.get('category');
+
+  this.contribution = this.navParams.get('amount');
 
  }
 
@@ -195,13 +208,13 @@ export class ParticipatePage {
       let obj = data[0];
 
       this.requesterName = obj['realname'];
-      this.requestedAmount = obj['amount'];
-
-      this.requestedCatergory = obj['category'];
-
-      this.contribution = 2000;
-
-      let currencyType = obj['currency'];
+      // this.requestedAmount = obj['amount'];
+      //
+      // this.requestedCatergory = obj['category'];
+      //
+      // this.contribution = 2000;
+      //
+      // let currencyType = obj['currency'];
 
 
       // requestedAmount: number;
