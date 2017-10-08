@@ -35,11 +35,9 @@ export class ParticipatePage {
 
   contribution: number;
 
-<<<<<<< HEAD
+
   category: any;
-=======
-  catergory: any;
->>>>>>> e990c2b52badd61aafdaebd92b3c6a65b8b641c0
+
   total: number;
   username: any;
   amount: number;
