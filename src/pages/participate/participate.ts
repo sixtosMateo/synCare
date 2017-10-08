@@ -35,6 +35,11 @@ export class ParticipatePage {
 
   contribution: number;
 
+  catergory: any;
+  total: number;
+  username: any;
+  amount: number;
+
   private urlParameters: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http) {
@@ -85,23 +90,23 @@ export class ParticipatePage {
          console.log(splitParams);
 
 		     if (singleURLParam[0] == "username"){
-           this.category = singleURLParam[1];
+           this.username = singleURLParam[1];
            valuableParam = true;
          }
 		     if (singleURLParam[0] == "amount"){
-           this.id = singleURLParam[1];
+           this.amount = +singleURLParam[1];
            valuableParam = true;
          }
          if (singleURLParam[0] == "currency"){
+           this.currency = singleURLParam[1];
+           valuableParam = true;
+         }
+		     if (singleURLParam[0] == "category"){
            this.category = singleURLParam[1];
            valuableParam = true;
          }
-		     if (singleURLParam[0] == "catergory"){
-           this.id = singleURLParam[1];
-           valuableParam = true;
-         }
          if (singleURLParam[0] == "total"){
-           this.id = singleURLParam[1];
+           this.total = singleURLParam[1];
            valuableParam = true;
          }
 
