@@ -9,16 +9,17 @@
   
   <ion-content padding>
         
-    <form [formGroup]="todo" (ngSubmit)="logForm()">
-      <ion-item>
+    <form id ="formStructure" [formGroup]="todo" (ngSubmit)="logForm()">
+      <ion-item class="itemstyle">
         <ion-label>username</ion-label>
-        <ion-input type="text" formControlName="title"></ion-input>
+        <ion-input  type="text" formControlName="title"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="itemstyle">
         <ion-label>password</ion-label>
         <ion-textarea formControlName="description"></ion-textarea>
       </ion-item>
-      <button ion-button type="submit" [disabled]="!todo.valid">Submit</button>
+      <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button>
     </form>
+   
 
   </ion-content>
