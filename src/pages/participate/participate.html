@@ -18,7 +18,7 @@
 
 <ion-content padding>
   <!-- <h3>Participation Amount</h3> -->
-  <h3>Participation Amount</h3>
+  <h3>Requester information: </h3>
 
   <ion-list>
     <!-- <ion-item *ngFor="let post of dataService.posts"> -->
@@ -31,17 +31,21 @@
   </ion-list>
 
   <ion-grid>
-    <ion-row>
-      Requester: {{requesterName}}
-      </ion-row>
-      <ion-row>
-      Total Amout: {{currencySymbol}}{{requestedAmount}}
-    </ion-row>
-    <ion-row>
-    Category: {{requestedCatergory}}
+    <ion-row class="requester-info-odd">
+      <ion-col >Total Amount:</ion-col>
+      <ion-col>{{currencySymbol}}{{requestedAmount}}</ion-col>
   </ion-row>
-  <ion-row>
-      Your contribution: {{currencySymbol}}{{contribution}}
+    <ion-row class="requester-info">
+      <ion-col>From:</ion-col>
+      <ion-col>{{requesterName}}</ion-col>
+      </ion-row>
+    <ion-row class="requester-info-odd">
+      <ion-col>Category:</ion-col>
+      <ion-col>{{requestedCatergory}}</ion-col>
+  </ion-row>
+  <ion-row class="requester-info">
+    <ion-col>Expected contribution:</ion-col>
+    <ion-col>{{currencySymbol}}{{contribution}}</ion-col>
     </ion-row>
 
 
@@ -74,8 +78,8 @@
 </ion-grid>
 
   <form id ="formStructure" [formGroup]="todo" (ngSubmit)="logForm()">
-    <ion-item class="itemstyle">
-      <ion-label>Enter contribution: {{currencySymbol}}</ion-label>
+    <ion-item class="input-box">
+      <ion-label>Enter Amount: {{currencySymbol}}</ion-label>
       <ion-input  type="text" formControlName="contribution"></ion-input>
     </ion-item>
     <!-- <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button> -->
