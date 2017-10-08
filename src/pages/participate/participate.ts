@@ -108,7 +108,7 @@ export class ParticipatePage {
            valuableParam = true;
          }
          if (singleURLParam[0] == "total"){
-           this.total = singleURLParam[1];
+           this.total = +singleURLParam[1];
            valuableParam = true;
          }
 
@@ -198,26 +198,26 @@ export class ParticipatePage {
 
   acceptRequest(){
 
-    var headers = new Headers();
-   headers.append("Accept", 'application/json');
-   headers.append('Content-Type', 'application/json' );
-   let options = new RequestOptions({ headers: headers });
+  //   var headers = new Headers();
+  //  headers.append("Accept", 'application/json');
+  //  headers.append('Content-Type', 'application/json' );
+  //  let options = new RequestOptions({ headers: headers });
 
-   let dataObj = {
-     title: 'foo',
-     body: 'bar',
-     userId: 1
-   }
+  //  let dataObj = {
+  //    title: 'foo',
+  //    body: 'bar',
+  //    userId: 1
+  //  }
 
-   this.http.post("http://jsonplaceholder.typicode.com/posts", dataObj, options)
-     .subscribe(data => {
-       console.log(data['_body']);
-      }, error => {
-       console.log(error);// Error getting the data
-     });
+  //  this.http.post("http://jsonplaceholder.typicode.com/posts", dataObj, options)
+  //    .subscribe(data => {
+  //      console.log(data['_body']);
+  //     }, error => {
+  //      console.log(error);// Error getting the data
+  //    });
 
 
-    console.log("Accepted request");
+  //   console.log("Accepted request");
 
   }
 
