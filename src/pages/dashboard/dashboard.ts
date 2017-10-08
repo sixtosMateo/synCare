@@ -16,6 +16,7 @@ export class DashboardPage {
   posts2: any;
   posts3:any;
   nameU: any;
+  historyshop:any;
   constructor(public navCtrl: NavController,public http: Http, public navPara: NavParams ){
     this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=users').map(res => res.json()).subscribe(data => {
       
@@ -32,11 +33,25 @@ export class DashboardPage {
           }
       });
 
+
       
   });
+  this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=getX&uid=1').map(res => res.json()).subscribe(data => {
+    
+    
+    
+    data.forEach(r => {
+      if(r.username == this.nameU)
+        { 
+          this.posts=r.fullname;
+          this.posts1=r.username;
+          this.posts2=r.email;
+          this.posts3=r.percent;
+        
+        }
+    });
 
-   //console.log(this.navPara.get('title'));
-
+   //console.log(this.navPara.get('title'))
   }
   
 }

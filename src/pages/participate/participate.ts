@@ -244,11 +244,11 @@ export class ParticipatePage {
      userId: 1
    }
 
-   let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + x + "&category=" + this.requestedCatergory  + "&currency=dollar";
+   let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + this.submittedAmount + "&category=" + this.requestedCatergory  + "&currency=dollar";
   // let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=53&category=medicine&currency=dollar";
    console.log(url);
 
-   this.http.post(url)
+   this.http.get(url)
      .subscribe(data => {
        console.log("success");
        this.showAlert();
