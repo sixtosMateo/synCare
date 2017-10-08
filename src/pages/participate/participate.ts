@@ -35,7 +35,7 @@ export class ParticipatePage {
 
   contribution: number;
 
-  catergory: any;
+  category: any;
   total: number;
   username: any;
   amount: number;
