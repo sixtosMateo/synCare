@@ -4,7 +4,8 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 // import { HomePage } from '../home/home';
 import { DashboardPage } from '../dashboard/dashboard';
 
-import { Http, Headers, RequestOptions } from '@angular/http';
+// import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { DataProvider } from '../../providers/data/data';
@@ -257,11 +258,11 @@ let currency_used = this.navParams.get('currency');
     console.log("Accepting: " + this.submittedAmount);
     console.log("Got: " + x)
 
-    var headers = new Headers();
+    // var headers = new Headers();
   //  headers.append("Accept", 'application/json');
   //  headers.append('Content-Type', 'application/json' );
   //  headers.append('Content-Type', 'text/html' );
-   let options = new RequestOptions({ headers: headers });
+  //  let options = new RequestOptions({ headers: headers });
 
   //  let dataObj = {
   //    title: 'foo',
