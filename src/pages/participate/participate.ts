@@ -2,11 +2,15 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HomePage } from '../home/home';
+import { DashboardPage } from '../dashboard/dashboard';
 
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { DataProvider } from '../../providers/data/data';
+
+import { AlertController } from 'ionic-angular';
+
 
 /**
  * Generated class for the ParticipatePage page.
@@ -30,7 +34,7 @@ export class ParticipatePage {
   percent: number;
   requestInfo: any;
 
-  requesterName: any;
+  requesterName: any = "";
   requestedAmount: number;
 
   requestedCatergory: any;
@@ -49,7 +53,7 @@ export class ParticipatePage {
 
   private urlParameters: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
 
     this.todo = this.formBuilder.group({
       contribution: ['', Validators.required],
@@ -154,15 +158,16 @@ export class ParticipatePage {
 
   backToDashboard(){
 
-    let data = {
-      title: 'sudo title',
-      information: [
-        'name', 'id'
-      ],
-      time: '10:10am'
-    };
+    // let data = {
+    //   title: 'sudo title',
+    //   information: [
+    //     'name', 'id'
+    //   ],
+    //   time: '10:10am'
+    // };
 
-    this.navCtrl.push(HomePage, data);
+//, data
+    this.navCtrl.push(DashboardPage);
   }
 
   getUserContribution(){
@@ -240,11 +245,14 @@ export class ParticipatePage {
    }
 
    let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + x + "&category=" + this.requestedCatergory  + "&currency=dollar";
+  // let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=53&category=medicine&currency=dollar";
    console.log(url);
 
    this.http.post(url)
      .subscribe(data => {
        console.log("success");
+       this.showAlert();
+       this.backToDashboard();
       //  console.log(data['_body']);
       }, error => {
        console.log(error);// Error getting the data
@@ -260,6 +268,15 @@ export class ParticipatePage {
 
   //   console.log("Accepted request");
 
+  }
+
+  showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Payment Sent!',
+      subTitle: 'Your payment of ' + this.submittedAmount + " was sent to " + this.requesterName,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }
