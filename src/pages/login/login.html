@@ -16,7 +16,8 @@
       </ion-item>
       <ion-item class="itemstyle">
         <ion-label>password</ion-label>
-        <ion-textarea formControlName="description"></ion-textarea>
+        
+        <ion-input type="password" formControlName="description"></ion-input>
       </ion-item>
       <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button>
     </form>

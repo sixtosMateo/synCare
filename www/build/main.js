@@ -456,7 +456,7 @@ var LoginPage = (function () {
 }());
 LoginPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-login',template:/*ion-inline-start:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/login/login.html"*/'<ion-header>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>Login </ion-title>\n    </ion-navbar>\n  </ion-header>\n  \n  <ion-content padding>\n        \n    <form id ="formStructure" [formGroup]="todo" (ngSubmit)="logForm()">\n      <ion-item class="itemstyle">\n        <ion-label>username</ion-label>\n        <ion-input  type="text" formControlName="title"></ion-input>\n      </ion-item>\n      <ion-item class="itemstyle">\n        <ion-label>password</ion-label>\n        <ion-textarea formControlName="description"></ion-textarea>\n      </ion-item>\n      <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button>\n    </form>\n   \n\n  </ion-content>'/*ion-inline-end:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/login/login.html"*/
+        selector: 'page-login',template:/*ion-inline-start:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/login/login.html"*/'<ion-header>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>Login </ion-title>\n    </ion-navbar>\n  </ion-header>\n  \n  <ion-content padding>\n        \n    <form id ="formStructure" [formGroup]="todo" (ngSubmit)="logForm()">\n      <ion-item class="itemstyle">\n        <ion-label>username</ion-label>\n        <ion-input  type="text" formControlName="title"></ion-input>\n      </ion-item>\n      <ion-item class="itemstyle">\n        <ion-label>password</ion-label>\n        \n        <ion-input type="password" formControlName="description"></ion-input>\n      </ion-item>\n      <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button>\n    </form>\n   \n\n  </ion-content>'/*ion-inline-end:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/login/login.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]])
 ], LoginPage);
@@ -689,24 +689,37 @@ var DashboardPage = (function () {
         this.navPara = navPara;
         this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=users').map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.nameU = _this.navPara.get('title');
+            // create function get varibles needed
             data.forEach(function (r) {
                 if (r.username == _this.nameU) {
                     _this.posts = r.fullname;
                     _this.posts1 = r.username;
                     _this.posts2 = r.email;
                     _this.posts3 = r.percent;
+                    _this.posts4 = r.uid;
                 }
             });
+            _this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=getX&uid=' + _this.posts4).map(function (res) { return res.json(); }).subscribe(function (data) {
+                _this.historyshops = data.filter(function (x) { return x.type !== 'total'; });
+                data.sort().forEach(function (r) {
+                    if (r.type === "request") {
+                        _this.amount = r.amount;
+                        _this.currency = r.currency;
+                        _this.date = r.date;
+                    }
+                    if (r.type === 'total') {
+                        console.log('===> ', r);
+                        _this.posts7 = r.amount;
+                    }
+                });
+            });
         });
-        // this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=getX&uid=1').map(res => res.json()).subscribe(data => {
-        //   this.historyshop = data;});
-        //console.log(this.navPara.get('title'))
     }
     return DashboardPage;
 }());
 DashboardPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-dashboard',template:/*ion-inline-start:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/dashboard/dashboard.html"*/'<ion-header>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>\n        <p class="title">Dashboard </p>\n          <p class="subtitle">Welcome: {{posts}}</p>\n      </ion-title>\n    </ion-navbar>\n  </ion-header>\n  \n  <ion-content padding>\n    <div class="container">    \n      <ion-card class="card1">\n        <ion-card-content >\n          <h2>Username account: {{posts1}}</h2>\n          <!-- <p>{{posts1}}</p> -->\n\n          <h2> Email: {{posts2}}</h2>\n          <!-- <p>{{posts2}}</p> -->\n\n          <h2>Percentange: {{posts3}}</h2>\n          <!-- <p>{{posts3}}</p> -->\n\n        </ion-card-content>\n      </ion-card>\n\n    <ion-card class="card2">\n          <ion-card-content>\n              <h2>Total Participation:</h2>\n              <h2>\'</h2>\n              <h2>\'</h2> \n          </ion-card-content>\n      </ion-card>\n    </div>\n\n    <ion-card>\n        <ion-card-content>\n            <h2>History:</h2>\n            <h2>\'</h2>\n            <h2>\'</h2> \n        </ion-card-content>\n    </ion-card>\n\n\n  </ion-content>'/*ion-inline-end:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/dashboard/dashboard.html"*/
+        selector: 'page-dashboard',template:/*ion-inline-start:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/dashboard/dashboard.html"*/'<ion-header>\n  <ion-navbar>\n    <div class="container1">\n    <button ion-button menuToggle class="menu">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>\n      <div class="title-contianer">\n      <p class="title">Dashboard </p>\n      <!-- <p class="subtitle">Welcome: {{posts}}</p> -->\n    </div>\n    </ion-title>\n      </div>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div class="container">\n    <ion-card class="card">\n      <ion-card-content>\n        \n        <h1>Pending Request</h1>\n        <table>\n            <tr>\n            <th>Amount</th>\n            <th>Currency</th>\n            <th>Date</th>\n            </tr>\n            <tr>\n                <td>{{amount}}</td>\n                <td>{{currency}}</td>\n                <td>{{date}}</td>\n              </tr>\n          \n        </table>\n\n\n      </ion-card-content>\n    </ion-card>\n\n    <ion-card class="card2">\n      <ion-card-content>\n          <h1>Total Contribution</h1>\n          <div class="number"> {{posts7}}</div>\n          <div class="currency">{{currency}}</div>\n\n\n      </ion-card-content>\n    </ion-card>\n  </div>\n\n  <ion-card>\n    <ion-card-content>\n      <table>\n        <tr>\n          <th>Name</th>\n          <th>Category</th>\n          <th>Amount</th>\n          <th>Currency</th>\n          <th>Date</th>\n        </tr>\n        <tr *ngFor="let historyshop of historyshops">\n          <td>{{historyshop.realname}}</td>\n          <td>{{historyshop.category}}</td>\n          <td>{{historyshop.amount}}</td>\n          <td>{{historyshop.currency}}</td>\n          <td>{{historyshop.date}}</td>\n        </tr>\n      </table>\n\n\n    </ion-card-content>\n  </ion-card>\n\n\n</ion-content>'/*ion-inline-end:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/dashboard/dashboard.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _c || Object])
 ], DashboardPage);

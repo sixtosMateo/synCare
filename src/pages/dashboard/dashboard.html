@@ -1,47 +1,77 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
+  <ion-navbar>
+    <div class="container1">
+    <button ion-button menuToggle class="menu">
         <ion-icon name="menu"></ion-icon>
       </button>
-      <ion-title>
-        <p class="title">Dashboard </p>
-          <p class="subtitle">Welcome: {{posts}}</p>
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <div class="container">    
-      <ion-card class="card1">
-        <ion-card-content >
-          <h2>Username account: {{posts1}}</h2>
-          <!-- <p>{{posts1}}</p> -->
-
-          <h2> Email: {{posts2}}</h2>
-          <!-- <p>{{posts2}}</p> -->
-
-          <h2>Percentange: {{posts3}}</h2>
-          <!-- <p>{{posts3}}</p> -->
-
-        </ion-card-content>
-      </ion-card>
-
-    <ion-card class="card2">
-          <ion-card-content>
-              <h2>Total Participation:</h2>
-              <h2>'</h2>
-              <h2>'</h2> 
-          </ion-card-content>
-      </ion-card>
+    <ion-title>
+      <div class="title-contianer">
+      <p class="title">Dashboard </p>
+      <!-- <p class="subtitle">Welcome: {{posts}}</p> -->
     </div>
+    </ion-title>
+      </div>
+  </ion-navbar>
+</ion-header>
 
-    <ion-card>
-        <ion-card-content>
-            <h2>History:</h2>
-            <h2>'</h2>
-            <h2>'</h2> 
-        </ion-card-content>
+<ion-content padding>
+
+  <div class="container">
+    <ion-card class="card">
+      <ion-card-content>
+        
+        <h1>Pending Request</h1>
+        <table>
+            <tr>
+            <th>Amount</th>
+            <th>Currency</th>
+            <th>Date</th>
+            </tr>
+            <tr>
+                <td>{{amount}}</td>
+                <td>{{currency}}</td>
+                <td>{{date}}</td>
+              </tr>
+          
+        </table>
+
+
+      </ion-card-content>
     </ion-card>
 
+    <ion-card class="card2">
+      <ion-card-content>
+          <h1>Total Contribution</h1>
+          <div class="number"> {{posts7}}</div>
+          <div class="currency">{{currency}}</div>
 
-  </ion-content>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-card>
+    <ion-card-content>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Currency</th>
+          <th>Date</th>
+        </tr>
+        <tr *ngFor="let historyshop of historyshops">
+          <td>{{historyshop.realname}}</td>
+          <td>{{historyshop.category}}</td>
+          <td>{{historyshop.amount}}</td>
+          <td>{{historyshop.currency}}</td>
+          <td>{{historyshop.date}}</td>
+        </tr>
+      </table>
+
+
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>
