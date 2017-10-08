@@ -30,12 +30,19 @@
   -->
   </ion-list>
 
-
-  <!-- <ion-item>
-    {{percent}}
-  </ion-item> -->
-
   <ion-grid>
+    <!-- <ion-row>
+      Requester: {{requesterName}}
+      </ion-row>
+      <ion-row>
+      Total Amout: {{requestedAmount}}
+    </ion-row>
+    <ion-row>
+    Category: {{requestedCatergory}}
+      Your contribution: {{contribution}}
+    </ion-row> -->
+
+
     <ion-row>
       <ion-col col-6>Requester: {{requesterName}}</ion-col><ion-col col-6>Total Amout: {{requestedAmount}}</ion-col>
     </ion-row>
@@ -44,25 +51,76 @@
       <ion-col col-6>Your contribution: {{contribution}}</ion-col>
     </ion-row>
 
-    <ion-row>
+    <!-- <ion-row>
       <ion-item>
-          <ion-input type="number" value=50 [(ngModel)]="number" required="true" clearInput=true min="0" max="50"></ion-input>
+          <ion-input type="number" value=50 [(ngModel)]="number" required="true" clearInput=true min="0" max="50"></ion-input> -->
           <!-- <ion-input type="number" value=50 [(ngModel)]="number" required="true" clearInput=true min="0" max="50"></ion-input> -->
-        </ion-item>
-    </ion-row>
+        <!-- </ion-item>
+    </ion-row> -->
 
-    <ion-row padding>
+    <!-- <ion-row padding>
       <ion-col col-6>
         <button ion-button (click)="denyRequest()">Deny</button>
       </ion-col>
       <ion-col col-6>
         <button ion-button (click)="acceptRequest()">Accept</button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <!-- <ion-row>
       <ion-col col-6>This column will take 6 columns</ion-col>
     </ion-row> -->
 </ion-grid>
+
+  <form id ="formStructure" [formGroup]="todo" (ngSubmit)="logForm()">
+    <ion-item class="itemstyle">
+      <ion-label>Contribution</ion-label>
+      <ion-input  type="text" formControlName="contribution"></ion-input>
+    </ion-item>
+    <!-- <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button> -->
+    <ion-grid>
+      <ion-row>
+      <ion-col col-6>
+        <!-- (click)="denyRequest()" -->
+        <button ion-button class="button button-block button-possite" [disabled]="todo.valid" >Deny</button>
+      </ion-col>
+      <ion-col col-6>
+        <!-- (click)="acceptRequest()" -->
+        <button ion-button type="submit" class="button button-block button-possite" [disabled]="!todo.valid" >Accept</button>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+  </form>
+
+
+  <!-- <form>
+    <div class="list">
+      <label class="item item-input">
+        <span class="input-label">input here </span>
+        <input type="text" placeholder=50>
+      </label>
+      <label class="item">
+        <ion-grid>
+          <ion-row>
+          <ion-col col-6>
+            <button ion-button class="button button-block button-possite">Deny</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button class="button button-block button-possite">Accept</button>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+      </label>
+    </div>
+  </form> -->
+
+
+
+
+  <!-- <ion-item>
+    {{percent}}
+  </ion-item> -->
+
+
 
 
 

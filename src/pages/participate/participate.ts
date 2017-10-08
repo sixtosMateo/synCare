@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HomePage } from '../home/home';
+import { DashboardPage } from '../dashboard/dashboard';
 
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { DataProvider } from '../../providers/data/data';
+
+import { AlertController } from 'ionic-angular';
+
 
 /**
  * Generated class for the ParticipatePage page.
@@ -21,13 +26,15 @@ import { DataProvider } from '../../providers/data/data';
 })
 export class ParticipatePage {
 
+  private todo : FormGroup;
+
   info: any;
   uname: any;
 
   percent: number;
   requestInfo: any;
 
-  requesterName: any;
+  requesterName: any = "";
   requestedAmount: number;
 
   requestedCatergory: any;
@@ -42,9 +49,16 @@ export class ParticipatePage {
   username: any;
   amount: number;
 
+  submittedAmount: number = 0;
+
   private urlParameters: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
+
+    this.todo = this.formBuilder.group({
+      contribution: ['', Validators.required],
+      description: [''],
+    });
 
     this.requestInfo = this.getRequesterInfo();
     this.dataService.getRemoteData();
@@ -69,6 +83,22 @@ export class ParticipatePage {
 
   //console.log(this.navPara.get('title'));
 
+ }
+
+ logForm(){
+
+   this.submittedAmount = this.todo.value.contribution;
+
+   if(this.submittedAmount == 0){
+     this.denyRequest();
+   }else if(this.submittedAmount != 0){
+     this.acceptRequest(this.todo.value.contribution);
+   }
+  // console.log(this.todo.value.contribution);
+
+
+
+  //  this.navCtrl.push(DashboardPage,{title: this.todo.value.title});
  }
 
   ionViewDidLoad() {
@@ -128,15 +158,16 @@ export class ParticipatePage {
 
   backToDashboard(){
 
-    let data = {
-      title: 'sudo title',
-      information: [
-        'name', 'id'
-      ],
-      time: '10:10am'
-    };
+    // let data = {
+    //   title: 'sudo title',
+    //   information: [
+    //     'name', 'id'
+    //   ],
+    //   time: '10:10am'
+    // };
 
-    this.navCtrl.push(HomePage, data);
+//, data
+    this.navCtrl.push(DashboardPage);
   }
 
   getUserContribution(){
@@ -196,18 +227,36 @@ export class ParticipatePage {
 
   }
 
-  acceptRequest(){
+  acceptRequest(x){
 
-  //   var headers = new Headers();
+    console.log("Accepting: " + this.submittedAmount);
+    console.log("Got: " + x)
+
+    var headers = new Headers();
   //  headers.append("Accept", 'application/json');
   //  headers.append('Content-Type', 'application/json' );
-  //  let options = new RequestOptions({ headers: headers });
+  //  headers.append('Content-Type', 'text/html' );
+   let options = new RequestOptions({ headers: headers });
 
-  //  let dataObj = {
-  //    title: 'foo',
-  //    body: 'bar',
-  //    userId: 1
-  //  }
+   let dataObj = {
+     title: 'foo',
+     body: 'bar',
+     userId: 1
+   }
+
+   let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + x + "&category=" + this.requestedCatergory  + "&currency=dollar";
+  // let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=53&category=medicine&currency=dollar";
+   console.log(url);
+
+   this.http.post(url)
+     .subscribe(data => {
+       console.log("success");
+       this.showAlert();
+       this.backToDashboard();
+      //  console.log(data['_body']);
+      }, error => {
+       console.log(error);// Error getting the data
+     });
 
   //  this.http.post("http://jsonplaceholder.typicode.com/posts", dataObj, options)
   //    .subscribe(data => {
@@ -219,6 +268,15 @@ export class ParticipatePage {
 
   //   console.log("Accepted request");
 
+  }
+
+  showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Payment Sent!',
+      subTitle: 'Your payment of ' + this.submittedAmount + " was sent to " + this.requesterName,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
 }
