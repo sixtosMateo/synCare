@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { HomePage } from '../home/home';
+// import { HomePage } from '../home/home';
 import { DashboardPage } from '../dashboard/dashboard';
 
-import { Http, Headers, RequestOptions } from '@angular/http';
+// import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { DataProvider } from '../../providers/data/data';
@@ -51,6 +52,8 @@ export class ParticipatePage {
 
   submittedAmount: number = 0;
 
+  currencySymbol: any =  "৳"; //"$";
+
   private urlParameters: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http, private formBuilder: FormBuilder, public alertCtrl: AlertController) {
@@ -61,6 +64,7 @@ export class ParticipatePage {
     });
 
     this.requestInfo = this.getRequesterInfo();
+
     this.dataService.getRemoteData();
 
     this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=users').map(res => res.json()).subscribe(data => {
@@ -82,6 +86,27 @@ export class ParticipatePage {
  });
 
   //console.log(this.navPara.get('title'));
+
+  console.log("NOW IN CONSTRUCTOR");
+  console.log(this.navParams);
+  console.log("amount: " + this.navParams.get('amount'));
+
+  this.requesterName = this.navParams.get('realname');
+
+  this.requestedAmount = this.navParams.get('total');
+
+  this.requestedCatergory = this.navParams.get('category');
+
+  this.contribution = this.navParams.get('amount');
+
+let currency_used = this.navParams.get('currency');
+
+  if(currency_used == 'dollar'){
+    this.currencySymbol = "$";
+  }else if(currency_used == 'taka'){
+    this.currencySymbol = "৳";
+  }
+
 
  }
 
@@ -195,13 +220,13 @@ export class ParticipatePage {
       let obj = data[0];
 
       this.requesterName = obj['realname'];
-      this.requestedAmount = obj['amount'];
-
-      this.requestedCatergory = obj['category'];
-
-      this.contribution = 2000;
-
-      let currencyType = obj['currency'];
+      // this.requestedAmount = obj['amount'];
+      //
+      // this.requestedCatergory = obj['category'];
+      //
+      // this.contribution = 2000;
+      //
+      // let currencyType = obj['currency'];
 
 
       // requestedAmount: number;
@@ -224,6 +249,7 @@ export class ParticipatePage {
   denyRequest(){
 
     console.log("Denied request");
+    this.backToDashboard();
 
   }
 
@@ -232,17 +258,17 @@ export class ParticipatePage {
     console.log("Accepting: " + this.submittedAmount);
     console.log("Got: " + x)
 
-    var headers = new Headers();
+    // var headers = new Headers();
   //  headers.append("Accept", 'application/json');
   //  headers.append('Content-Type', 'application/json' );
   //  headers.append('Content-Type', 'text/html' );
-   let options = new RequestOptions({ headers: headers });
+  //  let options = new RequestOptions({ headers: headers });
 
-   let dataObj = {
-     title: 'foo',
-     body: 'bar',
-     userId: 1
-   }
+  //  let dataObj = {
+  //    title: 'foo',
+  //    body: 'bar',
+  //    userId: 1
+  //  }
 
    let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + this.submittedAmount + "&category=" + this.requestedCatergory  + "&currency=dollar";
   // let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=53&category=medicine&currency=dollar";
