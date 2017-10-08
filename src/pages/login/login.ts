@@ -25,6 +25,7 @@ export class LoginPage {
   private urlParameters: Array<any> = [];
 
   constructor( public navCtrl: NavController, private formBuilder: FormBuilder ) {
+    console.log("IN login page");
     this.todo = this.formBuilder.group({
       title: ['', Validators.required],
       description: [''],
@@ -91,6 +92,7 @@ export class LoginPage {
 
        if(this.urlParameters.length == 0){
          console.log("empty list");
+        //  this.goToDashboard();
        }else{
          console.log("array list not empty")
          this.goToParticipationPage();
@@ -113,5 +115,22 @@ export class LoginPage {
      };
 
      this.navCtrl.push(ParticipatePage, data);
+   }
+
+   goToDashboard(){
+    //  title: 'sudo title',
+    //  information: [
+    //    'name', 'id'
+    //  ],
+    //  time: '10:10am'
+    //  let data = {
+    //    "total": this.total,
+    //    "category": this.category,
+    //    "amount": this.amount,
+    //    "currency": this.currency,
+    //    "username": this.username
+    //  };
+
+     this.navCtrl.push(DashboardPage);
    }
 }

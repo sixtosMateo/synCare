@@ -24,7 +24,10 @@ export class DashboardPage {
   historyshops: any;
   constructor(public navCtrl: NavController,public http: Http, public navPara: NavParams ){
     this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=users').map(res => res.json()).subscribe(data => {
-      
+      console.log("I'm in dashboard page");
+
+      // this.navCtrl.setRoot(this.navCtrl.getActive().component)
+
       this.nameU= this.navPara.get('title');
 
       // create function get varibles needed
