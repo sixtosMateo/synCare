@@ -1,230 +1,5 @@
 webpackJsonp([1],{
 
-/***/ 102:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ParticipatePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_data_data__ = __webpack_require__(154);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-/**
- * Generated class for the ParticipatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ParticipatePage = (function () {
-    function ParticipatePage(navCtrl, navParams, dataService, http, formBuilder, alertCtrl) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.dataService = dataService;
-        this.http = http;
-        this.formBuilder = formBuilder;
-        this.alertCtrl = alertCtrl;
-        this.requesterName = "";
-        this.submittedAmount = 0;
-        this.urlParameters = [];
-        this.todo = this.formBuilder.group({
-            contribution: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
-            description: [''],
-        });
-        this.requestInfo = this.getRequesterInfo();
-        this.dataService.getRemoteData();
-        this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=users').map(function (res) { return res.json(); }).subscribe(function (data) {
-            //  this.uname= this.navPara.get('title');
-            _this.uname = 'luis';
-            data.forEach(function (r) {
-                if (r.username == _this.uname) {
-                    _this.percent = r.percent;
-                    console.log("name: " + r.username);
-                    console.log("percent: " + r.percent);
-                }
-            });
-        });
-        //console.log(this.navPara.get('title'));
-    }
-    ParticipatePage.prototype.logForm = function () {
-        this.submittedAmount = this.todo.value.contribution;
-        if (this.submittedAmount == 0) {
-            this.denyRequest();
-        }
-        else if (this.submittedAmount != 0) {
-            this.acceptRequest(this.todo.value.contribution);
-        }
-        // console.log(this.todo.value.contribution);
-        //  this.navCtrl.push(DashboardPage,{title: this.todo.value.title});
-    };
-    ParticipatePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ParticipatePage');
-        // console.log(this.navParams.get('title'));
-        // console.log("here: " + this.dataService.getRemoteData());
-        if (document.URL.indexOf("?") > 0) {
-            console.log(document.URL);
-            var splitURL = document.URL.split("?");
-            var splitParams = splitURL[1].split("&");
-            var i = void 0;
-            for (i in splitParams) {
-                var valuableParam = false;
-                var singleURLParam = splitParams[i].split('=');
-                console.log(splitParams);
-                if (singleURLParam[0] == "username") {
-                    this.username = singleURLParam[1];
-                    valuableParam = true;
-                }
-                if (singleURLParam[0] == "amount") {
-                    this.amount = +singleURLParam[1];
-                    valuableParam = true;
-                }
-                if (singleURLParam[0] == "currency") {
-                    this.currency = singleURLParam[1];
-                    valuableParam = true;
-                }
-                if (singleURLParam[0] == "category") {
-                    this.category = singleURLParam[1];
-                    valuableParam = true;
-                }
-                if (singleURLParam[0] == "total") {
-                    this.total = +singleURLParam[1];
-                    valuableParam = true;
-                }
-                var urlParameter = {
-                    'name': singleURLParam[0],
-                    'value': singleURLParam[1]
-                };
-                if (valuableParam) {
-                    this.urlParameters.push(urlParameter);
-                }
-                console.log("url params: " + this.urlParameters);
-            }
-        }
-    };
-    ParticipatePage.prototype.backToDashboard = function () {
-        // let data = {
-        //   title: 'sudo title',
-        //   information: [
-        //     'name', 'id'
-        //   ],
-        //   time: '10:10am'
-        // };
-        //, data
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard__["a" /* DashboardPage */]);
-    };
-    ParticipatePage.prototype.getUserContribution = function () {
-        // console.log("uid: " + uid);
-        // let uid = 0;
-        // let data = this.dataService.getRemoteData();
-        // this.userData = data[uid];
-        // console.log(userData['percent']);
-        // return userData['percent'];
-        // return userData['name'];
-        return this.percent;
-    };
-    ParticipatePage.prototype.getRequesterInfo = function () {
-        var _this = this;
-        this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=getReqs').map(function (res) { return res.json(); }).subscribe(function (data) {
-            // console.log(data);
-            // console.log(data[0]);
-            // i is the user index in the response array
-            console.log("raw: " + data[0]['realname']);
-            var obj = data[0];
-            _this.requesterName = obj['realname'];
-            _this.requestedAmount = obj['amount'];
-            _this.requestedCatergory = obj['category'];
-            _this.contribution = 2000;
-            var currencyType = obj['currency'];
-            // requestedAmount: number;
-            // this.requestInfo = {'realname': obj['realname'], 'amount': obj['amount']};
-            // this.requestInfo = data[0];
-            // let i = 0;
-            // let jsonData = data[i];
-            // jsondata = data[0];
-            // console.log(jsonData['username']);
-            console.log("RequestInfo: " + _this.requestInfo);
-            return _this.requestInfo;
-        });
-    };
-    ParticipatePage.prototype.denyRequest = function () {
-        console.log("Denied request");
-    };
-    ParticipatePage.prototype.acceptRequest = function (x) {
-        var _this = this;
-        console.log("Accepting: " + this.submittedAmount);
-        console.log("Got: " + x);
-        var headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Headers */]();
-        //  headers.append("Accept", 'application/json');
-        //  headers.append('Content-Type', 'application/json' );
-        //  headers.append('Content-Type', 'text/html' );
-        var options = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        var dataObj = {
-            title: 'foo',
-            body: 'bar',
-            userId: 1
-        };
-        var url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + this.submittedAmount + "&category=" + this.requestedCatergory + "&currency=dollar";
-        // let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=53&category=medicine&currency=dollar";
-        console.log(url);
-        this.http.get(url)
-            .subscribe(function (data) {
-            console.log("success");
-            _this.showAlert();
-            _this.backToDashboard();
-            //  console.log(data['_body']);
-        }, function (error) {
-            console.log(error); // Error getting the data
-        });
-        //  this.http.post("http://jsonplaceholder.typicode.com/posts", dataObj, options)
-        //    .subscribe(data => {
-        //      console.log(data['_body']);
-        //     }, error => {
-        //      console.log(error);// Error getting the data
-        //    });
-        //   console.log("Accepted request");
-    };
-    ParticipatePage.prototype.showAlert = function () {
-        var alert = this.alertCtrl.create({
-            title: 'Payment Sent!',
-            subTitle: 'Your payment of ' + this.submittedAmount + " was sent to " + this.requesterName,
-            buttons: ['OK']
-        });
-        alert.present();
-    };
-    return ParticipatePage;
-}());
-ParticipatePage = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-participate',template:/*ion-inline-start:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/participate/participate.html"*/'<!--\n  Generated template for the ParticipatePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>participate</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <!-- <h3>Participation Amount</h3> -->\n  <h3>Participation Amount</h3>\n\n  <ion-list>\n    <!-- <ion-item *ngFor="let post of dataService.posts"> -->\n    <!--\n      <ion-item *ngFor="let post of dataService.posts">\n      {{post.uid}}\n      {{post.percent}}\n    </ion-item>\n  -->\n  </ion-list>\n\n  <ion-grid>\n    <!-- <ion-row>\n      Requester: {{requesterName}}\n      </ion-row>\n      <ion-row>\n      Total Amout: {{requestedAmount}}\n    </ion-row>\n    <ion-row>\n    Category: {{requestedCatergory}}\n      Your contribution: {{contribution}}\n    </ion-row> -->\n\n\n    <ion-row>\n      <ion-col col-6>Requester: {{requesterName}}</ion-col><ion-col col-6>Total Amout: {{requestedAmount}}</ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6>Category: {{requestedCatergory}}</ion-col>\n      <ion-col col-6>Your contribution: {{contribution}}</ion-col>\n    </ion-row>\n\n    <!-- <ion-row>\n      <ion-item>\n          <ion-input type="number" value=50 [(ngModel)]="number" required="true" clearInput=true min="0" max="50"></ion-input> -->\n          <!-- <ion-input type="number" value=50 [(ngModel)]="number" required="true" clearInput=true min="0" max="50"></ion-input> -->\n        <!-- </ion-item>\n    </ion-row> -->\n\n    <!-- <ion-row padding>\n      <ion-col col-6>\n        <button ion-button (click)="denyRequest()">Deny</button>\n      </ion-col>\n      <ion-col col-6>\n        <button ion-button (click)="acceptRequest()">Accept</button>\n      </ion-col>\n    </ion-row> -->\n    <!-- <ion-row>\n      <ion-col col-6>This column will take 6 columns</ion-col>\n    </ion-row> -->\n</ion-grid>\n\n  <form id ="formStructure" [formGroup]="todo" (ngSubmit)="logForm()">\n    <ion-item class="itemstyle">\n      <ion-label>Contribution</ion-label>\n      <ion-input  type="text" formControlName="contribution"></ion-input>\n    </ion-item>\n    <!-- <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button> -->\n    <ion-grid>\n      <ion-row>\n      <ion-col col-6>\n        <!-- (click)="denyRequest()" -->\n        <button ion-button class="button button-block button-possite" [disabled]="todo.valid" >Deny</button>\n      </ion-col>\n      <ion-col col-6>\n        <!-- (click)="acceptRequest()" -->\n        <button ion-button type="submit" class="button button-block button-possite" [disabled]="!todo.valid" >Accept</button>\n      </ion-col>\n    </ion-row>\n    </ion-grid>\n  </form>\n\n\n  <!-- <form>\n    <div class="list">\n      <label class="item item-input">\n        <span class="input-label">input here </span>\n        <input type="text" placeholder=50>\n      </label>\n      <label class="item">\n        <ion-grid>\n          <ion-row>\n          <ion-col col-6>\n            <button ion-button class="button button-block button-possite">Deny</button>\n          </ion-col>\n          <ion-col col-6>\n            <button ion-button class="button button-block button-possite">Accept</button>\n          </ion-col>\n        </ion-row>\n        </ion-grid>\n      </label>\n    </div>\n  </form> -->\n\n\n\n\n  <!-- <ion-item>\n    {{percent}}\n  </ion-item> -->\n\n\n\n\n\n\n\n  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->\n</ion-content>\n'/*ion-inline-end:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/participate/participate.html"*/,
-    }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_6__providers_data_data__["a" /* DataProvider */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
-], ParticipatePage);
-
-//# sourceMappingURL=participate.js.map
-
-/***/ }),
-
 /***/ 111:
 /***/ (function(module, exports) {
 
@@ -274,7 +49,7 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DataProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -319,7 +94,7 @@ var DataProvider = (function () {
 }());
 DataProvider = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
 ], DataProvider);
 
 //# sourceMappingURL=data.js.map
@@ -426,6 +201,7 @@ var ListPage_1;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_dashboard_dashboard__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__participate_participate__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -439,10 +215,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LoginPage = (function () {
     function LoginPage(navCtrl, formBuilder) {
         this.navCtrl = navCtrl;
         this.formBuilder = formBuilder;
+        this.urlParameters = [];
         this.todo = this.formBuilder.group({
             title: ['', __WEBPACK_IMPORTED_MODULE_3__angular_forms__["f" /* Validators */].required],
             description: [''],
@@ -451,6 +229,72 @@ var LoginPage = (function () {
     LoginPage.prototype.logForm = function () {
         console.log(this.todo.value.title);
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__pages_dashboard_dashboard__["a" /* DashboardPage */], { title: this.todo.value.title });
+    };
+    LoginPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ParticipatePage');
+        // console.log(this.navParams.get('title'));
+        // console.log("here: " + this.dataService.getRemoteData());
+        if (document.URL.indexOf("?") > 0) {
+            console.log(document.URL);
+            var splitURL = document.URL.split("?");
+            var splitParams = splitURL[1].split("&");
+            var i = void 0;
+            for (i in splitParams) {
+                var valuableParam = false;
+                var singleURLParam = splitParams[i].split('=');
+                console.log(splitParams);
+                if (singleURLParam[0] == "username") {
+                    this.username = singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "amount") {
+                    this.amount = +singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "currency") {
+                    this.currency = singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "category") {
+                    this.category = singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "total") {
+                    this.total = +singleURLParam[1];
+                    valuableParam = true;
+                }
+                var urlParameter = {
+                    'name': singleURLParam[0],
+                    'value': singleURLParam[1]
+                };
+                if (valuableParam) {
+                    this.urlParameters.push(urlParameter);
+                }
+                console.log("url params: " + this.urlParameters);
+            }
+            if (this.urlParameters.length == 0) {
+                console.log("empty list");
+            }
+            else {
+                console.log("array list not empty");
+                this.goToParticipationPage();
+            }
+        }
+    };
+    LoginPage.prototype.goToParticipationPage = function () {
+        //  title: 'sudo title',
+        //  information: [
+        //    'name', 'id'
+        //  ],
+        //  time: '10:10am'
+        var data = {
+            "total": this.total,
+            "category": this.category,
+            "amount": this.amount,
+            "currency": this.currency,
+            "username": this.username
+        };
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__participate_participate__["a" /* ParticipatePage */], data);
     };
     return LoginPage;
 }());
@@ -496,7 +340,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_dashboard_dashboard__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__services_dashboardDetails__ = __webpack_require__(269);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_participate_participate__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_participate_participate__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_data_data__ = __webpack_require__(154);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -540,7 +384,7 @@ AppModule = __decorate([
                     { loadChildren: '../pages/participate/participate.module#ParticipatePageModule', name: 'ParticipatePage', segment: 'participate', priority: 'low', defaultHistory: [] }
                 ]
             }),
-            __WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* HttpModule */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_http__["b" /* HttpModule */],
         ],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
         entryComponents: [
@@ -578,7 +422,7 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_list_list__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_dashboard_dashboard__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_participate_participate__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_participate_participate__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -666,7 +510,7 @@ var DashboardDetails = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -721,11 +565,256 @@ DashboardPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
         selector: 'page-dashboard',template:/*ion-inline-start:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/dashboard/dashboard.html"*/'<ion-header>\n  <ion-navbar>\n    <div class="container1">\n    <button ion-button menuToggle class="menu">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    <ion-title>\n      <div class="title-contianer">\n      <p class="title">Dashboard </p>\n      <!-- <p class="subtitle">Welcome: {{posts}}</p> -->\n    </div>\n    </ion-title>\n      </div>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <div class="container">\n    <ion-card class="card">\n      <ion-card-content>\n        \n        <h1>Pending Request</h1>\n        <table>\n            <tr>\n            <th>Amount</th>\n            <th>Currency</th>\n            <th>Date</th>\n            </tr>\n            <tr>\n                <td>{{amount}}</td>\n                <td>{{currency}}</td>\n                <td>{{date}}</td>\n              </tr>\n          \n        </table>\n\n\n      </ion-card-content>\n    </ion-card>\n\n    <ion-card class="card2">\n      <ion-card-content>\n          <h1>Total Contribution</h1>\n          <div class="number"> {{posts7}}</div>\n          <div class="currency">{{currency}}</div>\n\n\n      </ion-card-content>\n    </ion-card>\n  </div>\n\n  <ion-card>\n    <ion-card-content>\n      <table>\n        <tr>\n          <th>Name</th>\n          <th>Category</th>\n          <th>Amount</th>\n          <th>Currency</th>\n          <th>Date</th>\n        </tr>\n        <tr *ngFor="let historyshop of historyshops">\n          <td>{{historyshop.realname}}</td>\n          <td>{{historyshop.category}}</td>\n          <td>{{historyshop.amount}}</td>\n          <td>{{historyshop.currency}}</td>\n          <td>{{historyshop.date}}</td>\n        </tr>\n      </table>\n\n\n    </ion-card-content>\n  </ion-card>\n\n\n</ion-content>'/*ion-inline-end:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/dashboard/dashboard.html"*/
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
 ], DashboardPage);
 
-var _a, _b, _c;
 //# sourceMappingURL=dashboard.js.map
+
+/***/ }),
+
+/***/ 52:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ParticipatePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_data_data__ = __webpack_require__(154);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+// import { HomePage } from '../home/home';
+
+// import { Http, Headers, RequestOptions } from '@angular/http';
+
+
+
+
+/**
+ * Generated class for the ParticipatePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var ParticipatePage = (function () {
+    function ParticipatePage(navCtrl, navParams, dataService, http, formBuilder, alertCtrl) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.dataService = dataService;
+        this.http = http;
+        this.formBuilder = formBuilder;
+        this.alertCtrl = alertCtrl;
+        this.requesterName = "";
+        this.submittedAmount = 0;
+        this.currencySymbol = "৳"; //"$";
+        this.urlParameters = [];
+        this.todo = this.formBuilder.group({
+            contribution: ['', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required],
+            description: [''],
+        });
+        this.requestInfo = this.getRequesterInfo();
+        this.dataService.getRemoteData();
+        this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=users').map(function (res) { return res.json(); }).subscribe(function (data) {
+            //  this.uname= this.navPara.get('title');
+            _this.uname = 'luis';
+            data.forEach(function (r) {
+                if (r.username == _this.uname) {
+                    _this.percent = r.percent;
+                    console.log("name: " + r.username);
+                    console.log("percent: " + r.percent);
+                }
+            });
+        });
+        //console.log(this.navPara.get('title'));
+        console.log("NOW IN CONSTRUCTOR");
+        console.log(this.navParams);
+        console.log("amount: " + this.navParams.get('amount'));
+        this.requesterName = this.navParams.get('realname');
+        this.requestedAmount = this.navParams.get('total');
+        this.requestedCatergory = this.navParams.get('category');
+        this.contribution = this.navParams.get('amount');
+        var currency_used = this.navParams.get('currency');
+        if (currency_used == 'dollar') {
+            this.currencySymbol = "$";
+        }
+        else if (currency_used == 'taka') {
+            this.currencySymbol = "৳";
+        }
+    }
+    ParticipatePage.prototype.logForm = function () {
+        this.submittedAmount = this.todo.value.contribution;
+        if (this.submittedAmount == 0) {
+            this.denyRequest();
+        }
+        else if (this.submittedAmount != 0) {
+            this.acceptRequest(this.todo.value.contribution);
+        }
+        // console.log(this.todo.value.contribution);
+        //  this.navCtrl.push(DashboardPage,{title: this.todo.value.title});
+    };
+    ParticipatePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad ParticipatePage');
+        // console.log(this.navParams.get('title'));
+        // console.log("here: " + this.dataService.getRemoteData());
+        if (document.URL.indexOf("?") > 0) {
+            console.log(document.URL);
+            var splitURL = document.URL.split("?");
+            var splitParams = splitURL[1].split("&");
+            var i = void 0;
+            for (i in splitParams) {
+                var valuableParam = false;
+                var singleURLParam = splitParams[i].split('=');
+                console.log(splitParams);
+                if (singleURLParam[0] == "username") {
+                    this.username = singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "amount") {
+                    this.amount = +singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "currency") {
+                    this.currency = singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "category") {
+                    this.category = singleURLParam[1];
+                    valuableParam = true;
+                }
+                if (singleURLParam[0] == "total") {
+                    this.total = +singleURLParam[1];
+                    valuableParam = true;
+                }
+                var urlParameter = {
+                    'name': singleURLParam[0],
+                    'value': singleURLParam[1]
+                };
+                if (valuableParam) {
+                    this.urlParameters.push(urlParameter);
+                }
+                console.log("url params: " + this.urlParameters);
+            }
+        }
+    };
+    ParticipatePage.prototype.backToDashboard = function () {
+        // let data = {
+        //   title: 'sudo title',
+        //   information: [
+        //     'name', 'id'
+        //   ],
+        //   time: '10:10am'
+        // };
+        //, data
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard__["a" /* DashboardPage */]);
+    };
+    ParticipatePage.prototype.getUserContribution = function () {
+        // console.log("uid: " + uid);
+        // let uid = 0;
+        // let data = this.dataService.getRemoteData();
+        // this.userData = data[uid];
+        // console.log(userData['percent']);
+        // return userData['percent'];
+        // return userData['name'];
+        return this.percent;
+    };
+    ParticipatePage.prototype.getRequesterInfo = function () {
+        var _this = this;
+        this.http.get('http://home.loosescre.ws/~keith/synCare/server.php?command=getReqs').map(function (res) { return res.json(); }).subscribe(function (data) {
+            // console.log(data);
+            // console.log(data[0]);
+            // i is the user index in the response array
+            console.log("raw: " + data[0]['realname']);
+            var obj = data[0];
+            _this.requesterName = obj['realname'];
+            // this.requestedAmount = obj['amount'];
+            //
+            // this.requestedCatergory = obj['category'];
+            //
+            // this.contribution = 2000;
+            //
+            // let currencyType = obj['currency'];
+            // requestedAmount: number;
+            // this.requestInfo = {'realname': obj['realname'], 'amount': obj['amount']};
+            // this.requestInfo = data[0];
+            // let i = 0;
+            // let jsonData = data[i];
+            // jsondata = data[0];
+            // console.log(jsonData['username']);
+            console.log("RequestInfo: " + _this.requestInfo);
+            return _this.requestInfo;
+        });
+    };
+    ParticipatePage.prototype.denyRequest = function () {
+        console.log("Denied request");
+        this.backToDashboard();
+    };
+    ParticipatePage.prototype.acceptRequest = function (x) {
+        var _this = this;
+        console.log("Accepting: " + this.submittedAmount);
+        console.log("Got: " + x);
+        // var headers = new Headers();
+        //  headers.append("Accept", 'application/json');
+        //  headers.append('Content-Type', 'application/json' );
+        //  headers.append('Content-Type', 'text/html' );
+        //  let options = new RequestOptions({ headers: headers });
+        //  let dataObj = {
+        //    title: 'foo',
+        //    body: 'bar',
+        //    userId: 1
+        //  }
+        var url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + this.submittedAmount + "&category=" + this.requestedCatergory + "&currency=dollar";
+        // let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=53&category=medicine&currency=dollar";
+        console.log(url);
+        this.http.get(url)
+            .subscribe(function (data) {
+            console.log("success");
+            _this.showAlert();
+            _this.backToDashboard();
+            //  console.log(data['_body']);
+        }, function (error) {
+            console.log(error); // Error getting the data
+        });
+        //  this.http.post("http://jsonplaceholder.typicode.com/posts", dataObj, options)
+        //    .subscribe(data => {
+        //      console.log(data['_body']);
+        //     }, error => {
+        //      console.log(error);// Error getting the data
+        //    });
+        //   console.log("Accepted request");
+    };
+    ParticipatePage.prototype.showAlert = function () {
+        var alert = this.alertCtrl.create({
+            title: 'Payment Sent!',
+            subTitle: 'Your payment of ' + this.submittedAmount + " was sent to " + this.requesterName,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    return ParticipatePage;
+}());
+ParticipatePage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-participate',template:/*ion-inline-start:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/participate/participate.html"*/'<!--\n  Generated template for the ParticipatePage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>participate</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <!-- <h3>Participation Amount</h3> -->\n  <h3>Requester information: </h3>\n\n  <ion-list>\n    <!-- <ion-item *ngFor="let post of dataService.posts"> -->\n    <!--\n      <ion-item *ngFor="let post of dataService.posts">\n      {{post.uid}}\n      {{post.percent}}\n    </ion-item>\n  -->\n  </ion-list>\n\n  <ion-grid>\n    <ion-row class="requester-info-odd">\n      <ion-col >Total Amount:</ion-col>\n      <ion-col>{{currencySymbol}}{{requestedAmount}}</ion-col>\n  </ion-row>\n    <ion-row class="requester-info">\n      <ion-col>From:</ion-col>\n      <ion-col>{{requesterName}}</ion-col>\n      </ion-row>\n    <ion-row class="requester-info-odd">\n      <ion-col>Category:</ion-col>\n      <ion-col>{{requestedCatergory}}</ion-col>\n  </ion-row>\n  <ion-row class="requester-info">\n    <ion-col>Expected contribution:</ion-col>\n    <ion-col>{{currencySymbol}}{{contribution}}</ion-col>\n    </ion-row>\n\n\n    <!-- <ion-row>\n      <ion-col col-6>Requester: {{requesterName}}</ion-col><ion-col col-6>Total Amout: {{requestedAmount}}</ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col col-6>Category: {{requestedCatergory}}</ion-col>\n      <ion-col col-6>Your contribution: {{contribution}}</ion-col>\n    </ion-row> -->\n\n    <!-- <ion-row>\n      <ion-item>\n          <ion-input type="number" value=50 [(ngModel)]="number" required="true" clearInput=true min="0" max="50"></ion-input> -->\n          <!-- <ion-input type="number" value=50 [(ngModel)]="number" required="true" clearInput=true min="0" max="50"></ion-input> -->\n        <!-- </ion-item>\n    </ion-row> -->\n\n    <!-- <ion-row padding>\n      <ion-col col-6>\n        <button ion-button (click)="denyRequest()">Deny</button>\n      </ion-col>\n      <ion-col col-6>\n        <button ion-button (click)="acceptRequest()">Accept</button>\n      </ion-col>\n    </ion-row> -->\n    <!-- <ion-row>\n      <ion-col col-6>This column will take 6 columns</ion-col>\n    </ion-row> -->\n</ion-grid>\n\n  <form id ="formStructure" [formGroup]="todo" (ngSubmit)="logForm()">\n    <ion-item class="input-box">\n      <ion-label>Enter Amount: {{currencySymbol}}</ion-label>\n      <ion-input  type="text" formControlName="contribution"></ion-input>\n    </ion-item>\n    <!-- <button  class="itemstyle2" ion-button type="submit" [disabled]="!todo.valid">Submit</button> -->\n    <ion-grid>\n      <ion-row>\n      <ion-col col-6>\n        <!-- (click)="denyRequest()" -->\n        <button ion-button class="button button-block button-possite" [disabled]="todo.valid" >Deny</button>\n      </ion-col>\n      <ion-col col-6>\n        <!-- (click)="acceptRequest()" -->\n        <button ion-button type="submit" class="button button-block button-possite" [disabled]="!todo.valid" >Accept</button>\n      </ion-col>\n    </ion-row>\n    </ion-grid>\n  </form>\n\n\n  <!-- <form>\n    <div class="list">\n      <label class="item item-input">\n        <span class="input-label">input here </span>\n        <input type="text" placeholder=50>\n      </label>\n      <label class="item">\n        <ion-grid>\n          <ion-row>\n          <ion-col col-6>\n            <button ion-button class="button button-block button-possite">Deny</button>\n          </ion-col>\n          <ion-col col-6>\n            <button ion-button class="button button-block button-possite">Accept</button>\n          </ion-col>\n        </ion-row>\n        </ion-grid>\n      </label>\n    </div>\n  </form> -->\n\n\n\n\n  <!-- <ion-item>\n    {{percent}}\n  </ion-item> -->\n\n\n\n\n\n\n\n  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->\n</ion-content>\n'/*ion-inline-end:"/Users/mateosixtos/Documents/Hackathons Files/synCare_web/src/pages/participate/participate.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_6__providers_data_data__["a" /* DataProvider */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+], ParticipatePage);
+
+//# sourceMappingURL=participate.js.map
 
 /***/ })
 

@@ -25616,5 +25616,21 @@ page-login .itemstyle {
 page-login .itemstyle2 {
   width: 200px;
   margin: 0 auto;
-  float: right;
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 370px;
+}
+
+page-participate .requester-info {
+  font-size: 170%;
+}
+
+page-participate .requester-info-odd {
+  font-size: 170%;
+  background-color: #E5E8E8;
+}
+
+page-participate .input-box {
+  font-size: 190%;
+  font-weight: bold;
 }
