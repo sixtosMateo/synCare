@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { HomePage } from '../home/home';
 
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { DataProvider } from '../../providers/data/data';
@@ -20,6 +21,8 @@ import { DataProvider } from '../../providers/data/data';
   templateUrl: 'participate.html',
 })
 export class ParticipatePage {
+
+  private todo : FormGroup;
 
   info: any;
   uname: any;
@@ -42,9 +45,16 @@ export class ParticipatePage {
   username: any;
   amount: number;
 
+  submittedAmount: number = 0;
+
   private urlParameters: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public dataService: DataProvider, public http: Http, private formBuilder: FormBuilder) {
+
+    this.todo = this.formBuilder.group({
+      contribution: ['', Validators.required],
+      description: [''],
+    });
 
     this.requestInfo = this.getRequesterInfo();
     this.dataService.getRemoteData();
@@ -69,6 +79,22 @@ export class ParticipatePage {
 
   //console.log(this.navPara.get('title'));
 
+ }
+
+ logForm(){
+
+   this.submittedAmount = this.todo.value.contribution;
+
+   if(this.submittedAmount == 0){
+     this.denyRequest();
+   }else if(this.submittedAmount != 0){
+     this.acceptRequest(this.todo.value.contribution);
+   }
+  // console.log(this.todo.value.contribution);
+
+
+
+  //  this.navCtrl.push(DashboardPage,{title: this.todo.value.title});
  }
 
   ionViewDidLoad() {
@@ -196,18 +222,33 @@ export class ParticipatePage {
 
   }
 
-  acceptRequest(){
+  acceptRequest(x){
 
-  //   var headers = new Headers();
+    console.log("Accepting: " + this.submittedAmount);
+    console.log("Got: " + x)
+
+    var headers = new Headers();
   //  headers.append("Accept", 'application/json');
   //  headers.append('Content-Type', 'application/json' );
-  //  let options = new RequestOptions({ headers: headers });
+  //  headers.append('Content-Type', 'text/html' );
+   let options = new RequestOptions({ headers: headers });
 
-  //  let dataObj = {
-  //    title: 'foo',
-  //    body: 'bar',
-  //    userId: 1
-  //  }
+   let dataObj = {
+     title: 'foo',
+     body: 'bar',
+     userId: 1
+   }
+
+   let url = "http://home.loosescre.ws/~keith/synCare/server.php?command=putX&username=keith&amount=" + x + "&category=" + this.requestedCatergory  + "&currency=dollar";
+   console.log(url);
+
+   this.http.post(url)
+     .subscribe(data => {
+       console.log("success");
+      //  console.log(data['_body']);
+      }, error => {
+       console.log(error);// Error getting the data
+     });
 
   //  this.http.post("http://jsonplaceholder.typicode.com/posts", dataObj, options)
   //    .subscribe(data => {
